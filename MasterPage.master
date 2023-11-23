@@ -1,0 +1,407 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1256" />
+    <meta http-equiv="Content-Language" content="ar" />
+    <title>NGU Student Portal</title>
+    <link href="plugins/jquery-ui/jquery-ui.min.css" rel="stylesheet" />
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <%--    <link href='http://fonts.googleapis.com/css?family=Righteous' rel='stylesheet' type='text/css' />--%>
+    <link href="plugins/fancybox/jquery.fancybox.css" rel="stylesheet" />
+    <link href="plugins/fullcalendar/fullcalendar.css" rel="stylesheet" />
+    <link href="plugins/xcharts/xcharts.min.css" rel="stylesheet" />
+    <link href="fonts/Helvetica.css" rel="stylesheet" />
+    <link href="fonts/droidarabickufi.css" rel="stylesheet" />
+    <link href="plugins/TimePicker/timedropper.css" rel="stylesheet" />
+    <link href="plugins/datatables/jquery.dataTables.css" rel="stylesheet" />
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+				            <script src="http://getbootstrap.com/docs-assets/js/html5shiv.js"></script>
+				            <script src="http://getbootstrap.com/docs-assets/js/respond.min.js"></script>
+		            <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <link href="/plugins/datatables/buttons.bootstrap.min.css" rel="stylesheet" />
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body lang="en">
+    <style>
+        .dt-buttons a {
+            margin-left: 5px;
+            margin-right: 5px;
+            border: 1px solid #ccc;
+            background-color: #808080;
+            padding: 5px;
+            color: white;
+        }
+
+    </style>
+    <form id="form1" runat="server">
+
+        <!--Start Header-->
+        <div id="screensaver">
+            <canvas id="canvas"></canvas>
+            <i class="fa fa-lock" id="screen_unlock"></i>
+        </div>
+        <div id="modalbox">
+            <div class="devoops-modal">
+                <div class="devoops-modal-header">
+                    <div class="modal-header-name">
+                        <span>Basic table</span>
+                    </div>
+                    <div class="box-icons">
+                        <a class="close-link">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="devoops-modal-inner">
+                </div>
+                <div class="devoops-modal-bottom">
+                </div>
+            </div>
+        </div>
+        <header class="navbar">
+            <div class="container-fluid expanded-panel">
+                <div class="row">
+                    <div id="logo" class="col-xs-12 col-sm-2">
+                        <asp:HyperLink ID="hlLogo" runat="server" >NGU Student Portal</asp:HyperLink>
+                    </div>
+                    <div id="top-panel" class="col-xs-12 col-sm-10">
+                        <div class="row">
+                            <div class="col-xs-8 col-sm-4">
+                                <a href="#" class="show-sidebar">
+                                    <i class="fa fa-bars"></i>
+                                </a>
+                            </div>
+                            <div class="col-xs-4 col-sm-8 top-panel-right">
+                                <ul class="nav navbar-nav pull-right panel-menu">
+
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle account" data-toggle="dropdown">
+                                            <div class="avatar">
+                                                <asp:Image ImageUrl="~/img/Logo.jpg" CssClass="img-rounded" runat="server" ID="avatar" />
+                                            </div>
+                                            <i class="fa fa-angle-down pull-right"></i>
+                                            <div class="user-mini pull-right">
+                                                <span class="welcome">Welcome</span>
+                                                <span>
+                                                    <asp:Literal ID="litUsername" runat="server"></asp:Literal></span>
+                                            </div>
+                                            </div>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <asp:HyperLink runat="server" ID="hlSignOut" NavigateUrl="~/Login.aspx">
+                                                    <i class="fa fa-power-off"></i>
+                                                    <span>Sign Out</span>
+                                                </asp:HyperLink>
+                                            </li>
+											
+											<li>
+                                                <asp:HyperLink runat="server" ID="hlchange" NavigateUrl="~/Pass/Default.aspx">
+                                                    <i class="fa fa-power-off"></i>
+                                                    <span>Change Password</span>
+                                                </asp:HyperLink>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!--End Header-->
+        <!--Start Container-->
+        <div id="main" class="container-fluid">
+            <div class="row">
+                <div id="sidebar-left" class="col-xs-2 col-sm-2">
+
+                    <nav>
+                        <ul class="nav main-menu" runat="server" id="menu_admin">
+                           
+             <%--               <li class="dropdown"  >
+                                <a runat="server" id="hlSettings" class="dropdown-toggle" href="javaScript:void(0);">
+                                    <i class="fa fa-gear"></i>
+                                    <span class="hidden-xs">
+                                        <asp:Label ID="Label1" runat="server" Text="Attendance"></asp:Label></span>
+                                </a>
+                                <ul class="dropdown-menu" id="menu1" runat="server">
+                                   
+
+                                      <li><a class="ajax-link" href="~/Attend/StudentsOverAllReportStu.aspx" id="A4" runat="server">
+                                        <asp:Label ID="Label7" runat="server" Text="Student Detailed Attendance"></asp:Label></a></li>
+                                                                                                    
+                                </ul>
+                                </li>--%>                           
+                            <li class="dropdown">
+                                <a runat="server" id="hlforms" class="dropdown-toggle" href="javaScript:void(0);">
+                                    <i class="fa fa-gear"></i>
+                                    <span class="hidden-xs">
+                                        <asp:Label ID="Label4" runat="server" Text="Online Request"></asp:Label></span>
+                                </a>
+                                <ul class="dropdown-menu" id="menu5" runat="server">
+                                   <li><a class="ajax-link" href="~/Dashboard/Student_DB_Requests.aspx" id="A1" runat="server">
+                                        <asp:Label ID="Label8" runat="server" Text="Internal Requests"></asp:Label></a></li> 
+										
+										<%--<li><a class="ajax-link" href="~/stop.html" id="hlApp22" runat="server">
+                                        <asp:Label ID="Label6" runat="server" Text="Form Requests"></asp:Label></a></li>--%>
+                                                                                                    
+                                </ul>
+                                </li>
+
+							
+                        </ul>
+                    </nav>
+                </div>
+                <!--Start Content-->
+                <div id="content" class="col-xs-12 col-sm-10">
+                    <div id="ajax-content">
+                        <%--<div class="row">
+                            <div id="breadcrumb" class="col-xs-12">
+                                <ol class="breadcrumb">
+                                    <li>
+                                        <asp:HyperLink NavigateUrl="~/Default.aspx" runat="server" ID="btnHome">Close</asp:HyperLink></li>
+                                </ol>
+                            </div>
+                        </div>--%>
+                        <asp:ScriptManager ID="sm" runat="server" EnablePageMethods="true">
+                            <Scripts>
+                                <asp:ScriptReference Path="~/plugins/jquery/jquery-2.1.0.min.js" />
+                                <asp:ScriptReference Path="~/plugins/jquery-ui/jquery-ui.min.js" />
+                                <asp:ScriptReference Path="~/plugins/bootstrap/bootstrap.min.js" />
+                                <asp:ScriptReference Path="~/js/Content.js" />
+                                <%--<asp:ScriptReference Path="~/js/persianumber.js" />--%>
+
+                                <asp:ScriptReference Path="~/plugins/datatables/jquery.dataTables.min.js" />
+                                <asp:ScriptReference Path="~/plugins/datatables/ZeroClipboard.js" />
+                                <asp:ScriptReference Path="~/plugins/datatables/TableTools.js" />
+                                <asp:ScriptReference Path="~/plugins/datatables/dataTables.bootstrap.js" />
+                                <asp:ScriptReference Path="~/plugins/datatables/date-dd-MMM-yyyy.js" />
+                                <asp:ScriptReference Path="~/plugins/jquery-ui/i18n/jquery.ui.datepicker-ar.min.js" />
+                                <asp:ScriptReference Path="~/plugins/TimePicker/timedropper.js" />
+                                <asp:ScriptReference Path="~/plugins/select2/select2.min.js" />
+
+                                <asp:ScriptReference Path="~/plugins/datatables/dataTables.buttons.min.js" />
+                                <asp:ScriptReference Path="~/plugins/datatables/pdfmake.min.js" />
+                                <asp:ScriptReference Path="~/plugins/datatables/vfs_fonts.js" />
+                                <asp:ScriptReference Path="~/plugins/datatables/jszip.min.js" />
+                                <asp:ScriptReference Path="~/plugins/datatables/buttons.html5.min.js" />
+                                <asp:ScriptReference Path="~/plugins/datatables/buttons.print.min.js" />
+                            </Scripts>
+                        </asp:ScriptManager>
+                        <script>
+                            function printDiv(divID) {
+                                //Get the HTML of div
+                                $('.co').css("display", "none");
+                                $('.noPrint').css("display", "none");
+                                var divElements = document.getElementById(divID).innerHTML;
+                                //Get the HTML of whole page
+                                var oldPage = document.body.innerHTML;
+                                var div1 = divElements.replace("class=\"box-content2\"", "class=\"box-content2\" style=\"display:none;\"").replace("class=\"box-content3\"", "class=\"box-content3\" style=\"display:none;\"").replace("class=\"box-icons\"", "class=\"box-icons\" style=\"display:none;\"").replace("class=\"row pss\"", "class=\"row pss\" style=\"display:none;\"").replace("class=\"tab-pane\"", "class=\"tab-pane\" style=\"display:none;\"").replace("class=\"row-fluid\"", "class=\"row-fluid\" style=\"display:none;\"").replace("id=\"tabs\"", "id=\"tabs\" style=\"display:none;\"").replace("<footer", "<footer style=\"display:none;\"").replace("table table-bordered table-striped table-hover table-heading table-datatable", "table-bordered table-striped")
+                                //Reset the page's HTML with div's HTML only
+                                document.body.innerHTML =
+                                  "<html><head><title></title>" +
+                                  "<link href=\"../App_Themes/App_en/bootstrap.css\" type=\"text/css\" rel=\"stylesheet\">" +
+                                  "<link href=\"../App_Themes/App_en/style.css\" type=\"text/css\" rel=\"stylesheet\">" +
+                                    "</head><body>" +
+                                  div1 + "</body>";
+
+                                //Print Page
+                                window.print();
+                                //Restore orignal HTML
+                                document.body.innerHTML = oldPage;
+                                $('.co').css("display", "normal");
+                                $('.noPrint').css("display", "normal");
+
+
+                            }
+
+                        </script>
+                        <div id="PrintArea">
+                            <div class="row" id="dashboard-header">
+                                <div class="col-xs-6">
+                                    <div class="ScreeningPlace">
+                                        <asp:Image ImageUrl="~/img/Logo.jpg" CssClass="img-rounded" runat="server" ID="imgLogo" meta:resourcekey="imgLogoResource1" Width="50px" />
+                                    </div>
+                                    <div>
+                                        <span class="welcome" style="font-weight: bold;">
+                                            <asp:Label ID="litName" runat="server" Text="NewGiza University"></asp:Label></span>
+                                        <br />
+                                        <span>
+                                            <asp:Label ID="litScreening" runat="server" Text="NGU Student Portal"></asp:Label>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 pull-right">
+                                    <span class="pull-right">
+                                        <asp:Literal ID="litParticipant" runat="server" Text=""></asp:Literal></span>
+                                </div>
+                            </div>
+                            <%--<asp:UpdatePanel ID="Pro" runat="server">
+                                <ContentTemplate>--%>
+
+                            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                            </asp:ContentPlaceHolder>
+                            <%-- </ContentTemplate>
+                            </asp:UpdatePanel>--%>
+                        </div>
+                    </div>
+                </div>
+                <!--End Content-->
+            </div>
+        </div>
+        <!--End Container-->
+        <script type="text/javascript">
+            function CreateSelect() {
+                $('select').select2();
+                $('.dataTables_filter').each(function () {
+                    $(this).find('label input[type=text]').attr('placeholder', 'Search');
+                });
+            }
+
+            function pageLoad(sender, args) {
+                CreateSelect();
+            }
+            $(document).ready(function () {
+                //$('#main').persiaNumber('ar');
+                $.datepicker.setDefaults($.datepicker.regional['ar']);
+                $('.show-sidebar').on('click', function (e) {
+                    e.preventDefault();
+                    $('div#main').toggleClass('sidebar-show');
+                    setTimeout(MessagesMenuWidth, 250);
+                });
+                var ajax_url = location.hash.replace(/^#/, '');
+                if (ajax_url.length < 1) {
+                    ajax_url = 'ajax/dashboard.html';
+                }
+                //LoadAjaxContent(ajax_url);
+                $('.main-menu').on('click', 'a', function (e) {
+                    var parents = $(this).parents('li');
+                    var li = $(this).closest('li.dropdown');
+                    var another_items = $('.main-menu li').not(parents);
+                    another_items.find('a').removeClass('active');
+                    another_items.find('a').removeClass('active-parent');
+                    if ($(this).hasClass('dropdown-toggle') || $(this).closest('li').find('ul').length == 0) {
+                        $(this).addClass('active-parent');
+                        var current = $(this).next();
+                        if (current.is(':visible')) {
+                            li.find("ul.dropdown-menu").slideUp('fast');
+                            li.find("ul.dropdown-menu a").removeClass('active')
+                        }
+                        else {
+                            another_items.find("ul.dropdown-menu").slideUp('fast');
+                            current.slideDown('fast');
+                        }
+                    }
+                    else {
+                        if (li.find('a.dropdown-toggle').hasClass('active-parent')) {
+                            var pre = $(this).closest('ul.dropdown-menu');
+                            pre.find("li.dropdown").not($(this).closest('li')).find('ul.dropdown-menu').slideUp('fast');
+                        }
+                    }
+                    if ($(this).hasClass('active') == false) {
+                        $(this).parents("ul.dropdown-menu").find('a').removeClass('active');
+                        $(this).addClass('active')
+                    }
+                    if ($(this).hasClass('ajax-link')) {
+                        e.preventDefault();
+                        if ($(this).hasClass('add-full')) {
+                            $('#content').addClass('full-content');
+                        }
+                        else {
+                            $('#content').removeClass('full-content');
+                        }
+                        var url = $(this).attr('href');
+                        window.location.assign(url);
+                        //LoadAjaxContent(url);
+                    }
+                    if ($(this).attr('href') == '#') {
+                        e.preventDefault();
+                    }
+                });
+
+                var height = window.innerHeight - 49;
+                $('#main').css('min-height', height)
+                    .on('click', '.expand-link', function (e) {
+                        var body = $('body');
+                        e.preventDefault();
+                        var box = $(this).closest('div.box');
+                        var button = $(this).find('i');
+                        button.toggleClass('fa-expand').toggleClass('fa-compress');
+                        box.toggleClass('expanded');
+                        body.toggleClass('body-expanded');
+                        var timeout = 0;
+                        if (body.hasClass('body-expanded')) {
+                            timeout = 100;
+                        }
+                        setTimeout(function () {
+                            box.toggleClass('expanded-padding');
+                        }, timeout);
+                        setTimeout(function () {
+                            box.resize();
+                            box.find('[id^=map-]').resize();
+                        }, timeout + 50);
+                    })
+                    .on('click', '.collapse-link', function (e) {
+                        e.preventDefault();
+                        var box = $(this).closest('div.box');
+                        var button = $(this).find('i');
+                        var content = box.find('div.box-content');
+                        content.slideToggle('fast');
+                        button.toggleClass('fa-chevron-up').toggleClass('fa-chevron-down');
+                        setTimeout(function () {
+                            box.resize();
+                            box.find('[id^=map-]').resize();
+                        }, 50);
+                    })
+                    .on('click', '.close-link', function (e) {
+                        e.preventDefault();
+                        var content = $(this).closest('div.box');
+                        content.remove();
+                    });
+                $('#locked-screen').on('click', function (e) {
+                    e.preventDefault();
+                    $('body').addClass('body-screensaver');
+                    $('#screensaver').addClass("show");
+                    ScreenSaver();
+                });
+                $('body').on('click', 'a.close-link', function (e) {
+                    e.preventDefault();
+                    CloseModalBox();
+                });
+                $('#top-panel').on('click', 'a', function (e) {
+                    if ($(this).hasClass('ajax-link')) {
+                        e.preventDefault();
+                        if ($(this).hasClass('add-full')) {
+                            $('#content').addClass('full-content');
+                        }
+                        else {
+                            $('#content').removeClass('full-content');
+                        }
+                        var url = $(this).attr('href');
+                        window.location.hash = url;
+                        LoadAjaxContent(url);
+                    }
+                });
+                $('#screen_unlock').on('mouseover', function () {
+                    var header = 'Enter current username and password';
+                    var form = $('<div class="form-group"><label class="control-label">Username</label><input type="text" class="form-control" name="username" /></div>' +
+                                '<div class="form-group"><label class="control-label">Password</label><input type="password" class="form-control" name="password" /></div>');
+                    var button = $('<div class="text-center"><a href="Default.aspx" class="btn btn-primary">Unlock</a></div>');
+                    OpenModalBox(header, form, button);
+                });
+            });
+        </script>
+
+    </form>
+</body>
+</html>
