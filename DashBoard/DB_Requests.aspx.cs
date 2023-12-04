@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -26,6 +26,7 @@ public partial class DashBoardForm : System.Web.UI.Page
                 using (cmd = new SqlCommand("GetAllDashboard", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@stid", Session["StuSmallId"]);
                     adr = new SqlDataAdapter(cmd);
                     dt = new DataTable();
                     adr.Fill(dt);
